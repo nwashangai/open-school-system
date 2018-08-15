@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node ./bin/start",
     "test": "mocha --recursive './test/*Test.js' --compilers js:babel-core/register --exit",
-    "cover": "nyc npm run test && nyc report --reporter=lcov --reporter=text-lcov npm test",
-    "coveralls": "./node_modules/.bin/mocha './test/*Test.js' -R mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js"
+    "cover": "nyc report --reporter=lcov --reporter=text-lcov npm test",
+    "coveralls": "nyc report --reporter=lcov --reporter=text-lcov npm test | ./node_modules/coveralls/bin/coveralls.js"
   },
   "dependencies": {
     "babel-core": "^6.25.0",
