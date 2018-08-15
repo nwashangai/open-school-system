@@ -17,4 +17,5 @@ before_script:
 script:
   - ./node_modules/mocha/bin/mocha --recursive './test/*Test.js' --compilers js:babel-core/register --exit
 after_success:
+  - npm run cover
   - npm run coveralls
