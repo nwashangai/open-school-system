@@ -1,0 +1,15 @@
+machine:
+  environment:
+    CC_TEST_REPORTER_ID: 0efa28cfce60931f4e10fd1b81fa1a75e84929ef877a60fcd223b9dc116b6152
+
+dependencies:
+  post:
+    - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    - chmod +x ./cc-test-reporter
+
+test:
+  pre:
+    - ./cc-test-reporter before-build
+
+  post:
+    - ./cc-test-reporter after-build --exit-code $EXIT_CODE
