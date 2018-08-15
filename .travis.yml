@@ -15,6 +15,6 @@ before_script:
   - travis_wait npm install
   - psql -U postgres -d oss -f resources/oss.sql
 script:
-  - mocha --recursive './test/*Test.js' --compilers js:babel-core/register --exit
+  - ./node_modules/mocha/bin/mocha --recursive './test/*Test.js' --compilers js:babel-core/register --exit
 after_success:
   - npm run coveralls
