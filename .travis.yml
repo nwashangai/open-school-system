@@ -1,0 +1,20 @@
+services:
+  - postgresql
+dist: trusty
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - "node_modules"
+addons:
+  postgresql: "9.5"
+before_script:
+  - psql -c 'create database OSS;' -U postgres
+  - psql -c "CREATE USER oss_team WITH PASSWORD 'success';" -U postgres
+  - travis_wait npm install
+  - psql -U postgres -d OSS -f resources/OSS.sql
+script:
+  - mocha --recursive './test/*Test.js' --compilers js:babel-core/register --exit
+after_success:
+  - npm run coveralls
