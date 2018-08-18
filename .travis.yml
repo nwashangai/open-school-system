@@ -9,13 +9,18 @@ cache:
     - "node_modules"
 addons:
   postgresql: "9.5"
+  code_climate:
+        repo_token:
+          secure: "0efa28cfce60931f4e10fd1b81fa1a75e84929ef877a60fcd223b9dc116b6152"
 before_script:
   - psql -c 'create database oss;' -U postgres
   - psql -c "CREATE USER oss_team WITH PASSWORD 'success';" -U postgres
   - travis_wait npm install
-  - psql -U postgres -d oss -f resources/oss.sql
+  - sequelize db:migrate
+  - npm install codeclimate-test-reporter -g
 script:
   - ./node_modules/mocha/bin/mocha --recursive './test/*Test.js' --compilers js:babel-core/register --exit
 after_success:
   - npm run cover
   - npm run coveralls
+  - codeclimate-test-reporter < ./coverage/lcov.info
