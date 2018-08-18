@@ -11,7 +11,7 @@
 require('babel-core/register');
 require('babel-polyfill');
 
-const app = require('../app/app').default;
+const app = require('../application/app').default;
 const debug = require('debug')('oss-engine:server');
 const http = require('http');
 

@@ -36,13 +36,12 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
+app.use(index);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
-  const err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  res.status(404);
+  res.send({ error: '404 Sorry the page has not yet been defined try /api/v1/' });
 });
 
 // error handler

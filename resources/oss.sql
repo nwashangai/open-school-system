@@ -25,7 +25,7 @@ ALTER TABLE class ADD CONSTRAINT pk_class
 
 CREATE TABLE class_time_table
 (
-  id bigint NOT NULL,
+  id bigserial NOT NULL,
   session_id bigserial NOT NULL,
   class_arm_id bigserial NOT NULL,
   time_table jsonb NOT NULL
@@ -38,7 +38,7 @@ CREATE TABLE department
 (
   id bigserial NOT NULL,
   department_name varchar(50) NOT NULL,
-  head_of_department bigint
+  head_of_department varchar(50)
 );
 
 
@@ -49,7 +49,7 @@ ALTER TABLE department ADD CONSTRAINT pk_department
 
 CREATE TABLE periods
 (
-  id bigint NOT NULL,
+  id bigserial NOT NULL,
   start_time time NOT NULL,
   end_time time NOT NULL
 );
@@ -73,7 +73,7 @@ ALTER TABLE session ADD CONSTRAINT pk_session
 CREATE TABLE students
 (
   email varchar(50) NOT NULL,
-  student_id varchar(20) NOT NULL,
+  student_id varchar(20) UNIQUE NOT NULL,
   last_name varchar(50) NOT NULL,
   middle_name varchar(50),
   first_name varchar(50) NOT NULL,
@@ -109,7 +109,7 @@ ALTER TABLE students ADD CONSTRAINT pk_students
 CREATE TABLE subject
 (
   id bigserial NOT NULL,
-  category_id bigint NOT NULL,
+  category_id bigserial NOT NULL,
   subject_name varchar(50) NOT NULL
 );
 
@@ -147,7 +147,7 @@ ALTER TABLE subject_teachers ADD CONSTRAINT pk_subject_teachers
 CREATE TABLE teachers
 (
   email varchar(50) NOT NULL,
-  teacher_id varchar(20) NOT NULL,
+  teacher_id varchar(20) UNIQUE NOT NULL,
   last_name varchar(50) NOT NULL,
   middle_name varchar(50),
   first_name varchar(50) NOT NULL,
