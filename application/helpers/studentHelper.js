@@ -1,5 +1,10 @@
 import models from '../models';
 
+/**
+ * Create user helper transaction
+ * @function
+ * @argument {object} data
+ */
 exports.createStudent = async (data) => {
   try {
     return await models.sequelize.transaction(async () => {
