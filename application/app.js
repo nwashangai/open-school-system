@@ -1,4 +1,3 @@
-import config from 'dotenv';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import Debug from 'debug';
@@ -12,8 +11,10 @@ import path from 'path';
 
 import index from './routes/index';
 
+
 const app = express();
-config.config();
+require('dotenv').config();
+
 const debug = Debug('oss-engine:app');
 app.set('views', path.join(__dirname, 'views'));
 // view engine setup

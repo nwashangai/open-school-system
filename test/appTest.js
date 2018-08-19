@@ -28,11 +28,60 @@ describe('app index route', () => {
   });
 });
 
+/* Test to Authenticate User */
+describe('Login attempts', () => {
+  it('it should login user', (done) => {
+    chai.request(app)
+      .post('/api/v1/user/login')
+      .send({
+        email: 'johndoe@gmail.com',
+        password: '12345'
+      })
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.have.property('status', 'success');
+        res.body.should.have.property('token');
+        done();
+      });
+  });
+
+  it('it should reject request', (done) => {
+    chai.request(app)
+      .post('/api/v1/user/login')
+      .send({
+        email: 'johndoe@gmail.com',
+        password: '123456'
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message', 'Wrong password');
+        done();
+      });
+  });
+
+  it('it should reject request', (done) => {
+    chai.request(app)
+      .post('/api/v1/user/login')
+      .send({
+        email: 'fakeuser@gmail.com',
+        password: '123456'
+      })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message', 'Email does not exist');
+        done();
+      });
+  });
+});
+
 /* Test the /API route to confirm database setup */
 describe('create student', () => {
   it('it should create student record', (done) => {
     chai.request(app)
       .post('/api/v1/student/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
       .send({
         email: 'example@host.com',
         student_id: 'ABC123',
@@ -50,7 +99,8 @@ describe('create student', () => {
         phone: '0123456789',
         city: 'FCT',
         state: 'Abuja',
-        country: 'Nigeria'
+        country: 'Nigeria',
+        password: 'young'
       })
       .end((err, res) => {
         res.should.have.status(200);
@@ -63,6 +113,7 @@ describe('create student', () => {
   it('it should Reject duplicate', (done) => {
     chai.request(app)
       .post('/api/v1/student/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
       .send({
         email: 'example@host.com',
         student_id: 'ABC123',
@@ -80,7 +131,8 @@ describe('create student', () => {
         phone: '0123456789',
         city: 'FCT',
         state: 'Abuja',
-        country: 'Nigeria'
+        country: 'Nigeria',
+        password: 'young'
       })
       .end((err, res) => {
         res.should.have.status(500);
@@ -92,6 +144,7 @@ describe('create student', () => {
   it('it should GET /students', (done) => {
     chai.request(app)
       .get('/api/v1/student')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.property('status', 'success');
