@@ -17,6 +17,7 @@ before_script:
   - psql -c "CREATE USER oss_team WITH PASSWORD 'success';" -U postgres
   - travis_wait npm install
   - sequelize db:migrate
+  - sequelize db:seed:all
   - npm install codeclimate-test-reporter -g
 script:
   - ./node_modules/mocha/bin/mocha --recursive './test/*Test.js' --compilers js:babel-core/register --exit
