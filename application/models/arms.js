@@ -6,10 +6,12 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true
     },
     class_id: DataTypes.UUID,
-    arm: DataTypes.STRING(10)
+    arm: DataTypes.STRING(10),
+    form_teacher: DataTypes.STRING(20)
   }, {});
   arms.associate = (models) => {
     arms.belongsTo(models.classes);
+    arms.hasOne(models.teachers);
   };
   return arms;
 };

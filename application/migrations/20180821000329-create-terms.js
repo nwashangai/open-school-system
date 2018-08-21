@@ -1,25 +1,24 @@
 const uuid = require('uuid');
 'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('arms', {
+    return queryInterface.createTable('terms', {
       id: {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: uuid()
       },
-      class_id: {
+      session_id: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {
-          model: 'classes',
+          model: 'sessions',
           key: 'id'
         }
       },
-      arm: {
-        type: Sequelize.STRING(10),
+      term: {
+        type: Sequelize.ENUM('first', 'second', 'third'),
         allowNull: false,
       },
       createdAt: {
@@ -33,6 +32,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('arms');
+    return queryInterface.dropTable('terms');
   }
 };

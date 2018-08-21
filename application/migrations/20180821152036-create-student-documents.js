@@ -1,26 +1,28 @@
-const uuid = require('uuid');
 'use strict';
-
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('arms', {
-      id: {
+    return queryInterface.createTable('student_documents', {
+      student_id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.UUID,
-        defaultValue: uuid()
-      },
-      class_id: {
-        type: Sequelize.UUID,
-        allowNull: false,
+        type: Sequelize.STRING(20),
         references: {
-          model: 'classes',
+          model: 'students',
+          key: 'student_id'
+        }
+      },
+      type_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: 'document_types',
           key: 'id'
         }
       },
-      arm: {
-        type: Sequelize.STRING(10),
-        allowNull: false,
+      file: {
+        type: Sequelize.STRING(20)
+      },
+      description: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,
@@ -33,6 +35,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('arms');
+    return queryInterface.dropTable('student_documents');
   }
 };

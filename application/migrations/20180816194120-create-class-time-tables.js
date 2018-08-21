@@ -26,10 +26,6 @@ module.exports = {
           key: 'id'
         }
       },
-      type_table: {
-        type: Sequelize.JSONB,
-        allowNull: false
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
