@@ -13,11 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       as: 'schedule',
       foreignKey: 'fk_schedule'
     });
-    staff_schedules.hasOne(models.teachers, {
+    staff_schedules.hasOne(models.classrooms, {
       as: 'classrooms',
       foreignKey: 'fk_schedule_classroom'
     });
-    staff_schedules.hasOne(models.teachers, {
+    staff_schedules.hasOne(models.classes, {
       as: 'classes',
       foreignKey: 'fk_schedule_class'
     });

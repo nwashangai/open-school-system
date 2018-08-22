@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const subject_teachers = sequelize.define('subject_teachers', {
-    email: {
+    teacher_id: {
       type: DataTypes.STRING(50),
       primaryKey: true
     },
@@ -12,7 +12,11 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.TEXT
   }, {});
   subject_teachers.associate = (models) => {
-    subject_teachers.belongsTo(models.subjects);
+    subject_teachers.belongsTo(models.teachers);
+    subject_teachers.belongsTo(models.subjects, {
+      as: 'subject_teacher',
+      foreignKey: 'fk_subject_teacher'
+    });
   };
   return subject_teachers;
 };

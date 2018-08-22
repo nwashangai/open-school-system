@@ -2,13 +2,13 @@
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('subject_teachers', {
-      email: {
+      teacher_id: {
         allowNull: false,
         primaryKey: true,
-        type: Sequelize.STRING(50),
+        type: Sequelize.STRING(20),
         references: {
           model: 'teachers',
-          key: 'email'
+          key: 'id'
         }
       },
       subject_id: {

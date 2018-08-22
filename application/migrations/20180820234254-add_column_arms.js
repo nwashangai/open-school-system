@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.STRING(20),
         references: {
           model: 'teachers',
-          key: 'teacher_id'
+          key: 'id'
         }
       }
     );

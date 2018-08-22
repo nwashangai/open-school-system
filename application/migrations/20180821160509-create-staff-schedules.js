@@ -24,7 +24,7 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'teachers',
-          key: 'teacher_id'
+          key: 'id'
         }
       },
       day: {
