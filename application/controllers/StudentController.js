@@ -23,17 +23,15 @@ class StudentController {
    * @param {object} response
    */
   async getStudents(request, response) {
-    try {
-      await models.students.findAll({
-        include: [
-          { model: models.users }
-        ]
-      }).then((done) => {
-        response.status(200).json({ status: 'success', entries: done });
-      });
-    } catch (error) {
-      response.status(500).json({ status: 'error', message: error.errors[0].message });
-    }
+    await models.students.findAll({
+      include: [
+        { model: models.users }
+      ]
+    }).then((done) => {
+      response.status(200).json({ status: 'success', entries: done });
+    }).catch((error) => {
+      response.status(500).json({ status: 'error', message: error.message });
+    });
   }
 }
 

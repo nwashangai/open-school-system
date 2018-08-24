@@ -28,6 +28,8 @@ describe('app index route', () => {
   });
 });
 
+require('./teacher/basicTest');
+
 /* Test to Authenticate User */
 describe('Login attempts', () => {
   it('it should login user', (done) => {

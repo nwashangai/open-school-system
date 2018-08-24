@@ -13,6 +13,7 @@ module.exports = {
       },
       employee_id: {
         type: Sequelize.STRING(20),
+        allowNull: false,
         unique: true
       },
       role: {
@@ -36,6 +37,10 @@ module.exports = {
       },
       gender: {
         type: Sequelize.STRING(7),
+        allowNull: false
+      },
+      job_title: {
+        type: Sequelize.STRING(100),
         allowNull: false
       },
       level: {

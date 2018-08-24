@@ -53,9 +53,17 @@ To create postgres database called *oss* run
 ```
 createdb oss
 ```
-To start the server run
+Now the database is create run the migration command to migrate the database schemas
 ```
-npm start
+sequelize db:migrate
+```
+And then run the seed command to load the initial data like this
+```
+sequelize db:seed:all
+```
+Now start the server by running
+```
+npm run dev
 ```
 Kudos :+1: now your API server is running at http://localhost:3000/
 

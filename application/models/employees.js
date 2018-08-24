@@ -1,7 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const employees = sequelize.define('employees', {
-    email: DataTypes.STRING(50),
+    email: {
+      type: DataTypes.STRING(50),
+      primaryKey: true
+    },
     employee_id: DataTypes.STRING(20),
     role: DataTypes.STRING(10),
     last_name: DataTypes.STRING(50),
@@ -9,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     first_name: DataTypes.STRING(50),
     dob: DataTypes.DATE,
     gender: DataTypes.STRING(7),
-    job_tile: DataTypes.STRING(100),
+    job_title: DataTypes.STRING(100),
     level: DataTypes.STRING(30),
     qualification: DataTypes.STRING(50),
     total_experience: DataTypes.STRING(15),
@@ -30,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
     country: DataTypes.STRING(50)
   }, {});
   employees.associate = (models) => {
-    // associations can be defined here
+    employees.belongsTo(models.users, { foreignKey: 'fk_email' });
   };
   return employees;
 };

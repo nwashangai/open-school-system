@@ -6,22 +6,14 @@ import models from '../models';
  * @argument {object} data
  */
 exports.createStudent = async (data) => {
-  try {
-    return await models.sequelize.transaction(async () => {
-      return models.users.create({
-        email: data.email,
-        role: 'student'
-      }).then(() => {
-        return models.students.create(data).then((student) => {
-          return student;
-        }).catch((err) => {
-          throw err;
-        })
-      }).catch((err) => {
-        throw err;
-      })
-    });
-  } catch (error) {
-    throw error;
-  }
+  return models.sequelize.transaction(async (t) => {
+    return models.users.create({
+      email: data.email,
+      role: 'student'
+    }, { transaction: t }).then((user) => {
+      return models.students.create(data, { transaction: t });
+    }).then((student) => { return student; }).catch((err) => {
+      throw err;
+    })
+  });
 };
