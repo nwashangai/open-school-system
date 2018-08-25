@@ -1,7 +1,7 @@
 import models from '../models';
 
 /**
- * Create user helper transaction
+ * Create student helper transaction
  * @function
  * @argument {object} data
  */

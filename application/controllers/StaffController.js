@@ -1,15 +1,15 @@
 import models from '../models';
-const teacherHelper = require('../helpers/teacherHelper');
+const staffHelper = require('../helpers/staffHelper');
 
-class TeacherController {
+class StaffController {
   /**
    * Create teacher record
    * @method
    * @param {object} request
    * @param {object} response
    */
-  async setTeacher(request, response) {
-    await teacherHelper.createTeacher(request.body).then((done) => {
+  async setStaff(request, response) {
+    await staffHelper.createStaff(request.body).then((done) => {
       response.status(200).json({ status: 'success', message: 'Record added', entry: done });
     }).catch((error) => {
       response.status(500).json({ status: 'error', message: error.message });
@@ -17,4 +17,4 @@ class TeacherController {
   }
 }
 
-module.exports = new TeacherController();
+module.exports = new StaffController();

@@ -11,6 +11,9 @@ exports.generateID = async (role, prefix) => {
   if (role === 'student') {
     count = await models.students.count({
     });
+  } else if (role === 'staff') {
+    count = await models.staffs.count({
+    });
   } else {
     count = await models.students.count({
     });

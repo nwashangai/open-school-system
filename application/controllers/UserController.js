@@ -35,7 +35,7 @@ class UserController {
         response.status(400).json({ status: 'error', message: 'Email does not exist' });
       }
     }).catch((error) => {
-      response.status(500).json({ status: 'error', data: error.errors[0].message });
+      response.status(500).json({ status: 'error', message: error.message });
     });
   }
 }

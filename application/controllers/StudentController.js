@@ -12,7 +12,7 @@ class StudentController {
     await studentHelper.createStudent(request.body).then((done) => {
       response.status(200).json({ status: 'success', message: 'Record added', entry: done });
     }).catch((error) => {
-      response.status(500).json({ status: 'error', data: error.errors[0].message });
+      response.status(500).json({ status: 'error', message: error.errors[0].message });
     });
   }
 

@@ -8,8 +8,8 @@ import app from '../../application/app';
 chai.should();
 chai.use(chaiHttp);
 
-const teacher = {
-  email: 'newdon@gmail.com',
+const staff = {
+  email: 'newstaff@gmail.com',
   role: 'teacher',
   last_name: 'newton',
   first_name: 'chu',
@@ -17,8 +17,7 @@ const teacher = {
   dob: '2002-04-07',
   blood_group: 'a',
   nationality: 'Nigerian',
-  job_title: 'Teacher',
-  // department: '777b046e-8e53-4e8f-b2a0-eb6c7568dd00',
+  job_title: 'cleaner',
   level: 'level 30',
   qualification: 'bachelors degreee',
   total_experience: 'six months',
@@ -34,38 +33,34 @@ const teacher = {
   state: 'lagos',
   country: 'Nigeria'
 }
-/* Test the /GET route */
-describe('Teacher information tests', () => {
-  let department = null;
-  it('it should reject unauthorize user', async () => {
-    department = await models.departments.findOne({
-      attributes: ['id']
-    });
-    teacher.department = department.dataValues.id;
+/* Test staff creation routes */
+describe('Staff information tests', () => {
+  it('it should reject unauthorize user', (done) => {
     chai.request(app)
-      .post('/api/v1/teacher/create')
-      .send(teacher)
-      .end((err, res) => {
-        res.should.have.status(401);
-      });
-  });
-
-  it('it should reject unauthorized user', (done) => {
-    chai.request(app)
-      .post('/api/v1/teacher/create')
-      .set('Authorization', 'JWT yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
-      .send(teacher)
+      .post('/api/v1/staff/create')
+      .send(staff)
       .end((err, res) => {
         res.should.have.status(401);
         done();
       });
   });
 
-  it('it should save teacher info', (done) => {
+  it('it should reject unauthorized user', (done) => {
     chai.request(app)
-      .post('/api/v1/teacher/create')
+      .post('/api/v1/staff/create')
+      .set('Authorization', 'JWT yJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .send(staff)
+      .end((err, res) => {
+        res.should.have.status(401);
+        done();
+      });
+  });
+
+  it('it should save staff info', (done) => {
+    chai.request(app)
+      .post('/api/v1/staff/create')
       .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
-      .send(teacher)
+      .send(staff)
       .end((err, res) => {
         res.should.have.status(200);
         res.body.should.have.property('status', 'success');
@@ -76,9 +71,9 @@ describe('Teacher information tests', () => {
 
   it('it should reject duplicate email', (done) => {
     chai.request(app)
-      .post('/api/v1/teacher/create')
+      .post('/api/v1/staff/create')
       .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
-      .send(teacher)
+      .send(staff)
       .end((err, res) => {
         res.should.have.status(500);
         res.body.should.have.property('status', 'error');
@@ -88,11 +83,11 @@ describe('Teacher information tests', () => {
   });
 
   it('it should reject incomplete request', (done) => {
-    delete teacher.country;
+    delete staff.first_name;
     chai.request(app)
-      .post('/api/v1/teacher/create')
+      .post('/api/v1/staff/create')
       .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
-      .send(teacher)
+      .send(staff)
       .end((err, res) => {
         res.should.have.status(500);
         res.body.should.have.property('status', 'error');
