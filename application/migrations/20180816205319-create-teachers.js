@@ -11,7 +11,7 @@ module.exports = {
           key: 'employee_id'
         }
       },
-      department: {
+      department_id: {
         type: Sequelize.UUID,
         allowNull: false,
         references: {

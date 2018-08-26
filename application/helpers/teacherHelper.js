@@ -9,6 +9,7 @@ const userHelper = require('../helpers/userHelper');
 exports.createTeacher = async (data) => {
   await userHelper.generateID('teacher', 'TCH').then((count) => {
     data.employee_id = count;
+    data.role = 'teacher';
   }).catch((error) => {
     throw error;
   });
@@ -19,7 +20,7 @@ exports.createTeacher = async (data) => {
     }, { transaction: t }).then((user) => {
       return models.employees.create(data, { transaction: t });
     }).then((employee) => {
-      const teacherFields = { id: data.employee_id, department: data.department };
+      const teacherFields = { id: data.employee_id, department_id: data.department_id };
       return models.teachers.create(teacherFields, { transaction: t });
     }).then((teacher) => {
       return teacher;

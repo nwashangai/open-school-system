@@ -39,7 +39,7 @@ module.exports = {
           key: 'id'
         }
       },
-      class: {
+      class_id: {
         type: Sequelize.UUID,
         references: {
           model: 'classes',

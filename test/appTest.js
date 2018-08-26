@@ -45,6 +45,21 @@ describe('Login attempts', () => {
       });
   });
 
+  it('it should reject invalid credentials', (done) => {
+    chai.request(app)
+      .post('/api/v1/user/login')
+      .send({
+        email: 'johndoegmail.com',
+        password: '12345'
+      })
+      .end((err, res) => {
+        res.should.have.status(422);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+
   it('it should reject request', (done) => {
     chai.request(app)
       .post('/api/v1/user/login')

@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(20),
       primaryKey: true
     },
-    department: DataTypes.UUID,
+    department_id: DataTypes.UUID,
   }, {});
   teachers.associate = (models) => {
     teachers.belongsTo(models.employees, {

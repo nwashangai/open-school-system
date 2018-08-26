@@ -1,4 +1,5 @@
 import models from '../models';
+const userHelper = require('../helpers/userHelper');
 
 /**
  * Create student helper transaction
@@ -6,6 +7,11 @@ import models from '../models';
  * @argument {object} data
  */
 exports.createStudent = async (data) => {
+  await userHelper.generateID('student', 'STUD').then((count) => {
+    data.student_id = count;
+  }).catch((error) => {
+    throw error;
+  });
   return models.sequelize.transaction(async (t) => {
     return models.users.create({
       email: data.email,

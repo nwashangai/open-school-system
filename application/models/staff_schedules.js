@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     teacher_id: DataTypes.STRING(20),
     day: DataTypes.ENUM('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'),
     classroom_id: DataTypes.UUID,
-    class: DataTypes.UUID
+    class_id: DataTypes.UUID
   }, {});
   staff_schedules.associate = (models) => {
     staff_schedules.hasOne(models.periods);

@@ -15,7 +15,7 @@ exports.generateID = async (role, prefix) => {
     count = await models.staffs.count({
     });
   } else {
-    count = await models.students.count({
+    count = await models.teachers.count({
     });
   }
   const p = (typeof prefix === 'string') ? prefix : '';

@@ -1,7 +1,6 @@
 import chai from 'chai';
 import 'babel-polyfill';
 import chaiHttp from 'chai-http';
-import models from '../../application/models';
 
 import app from '../../application/app';
 
@@ -10,12 +9,11 @@ chai.use(chaiHttp);
 
 const staff = {
   email: 'newstaff@gmail.com',
-  role: 'teacher',
   last_name: 'newton',
   first_name: 'chu',
   gender: 'male',
   dob: '2002-04-07',
-  blood_group: 'a',
+  blood_group: 'A',
   nationality: 'Nigerian',
   job_title: 'cleaner',
   level: 'level 30',
@@ -56,7 +54,67 @@ describe('Staff information tests', () => {
       });
   });
 
+  it('it should reject invalid input', (done) => {
+    staff.nationality = '$skb_oy';
+    chai.request(app)
+      .post('/api/v1/staff/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .send(staff)
+      .end((err, res) => {
+        res.should.have.status(422);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+
+  it('it should reject invalid input', (done) => {
+    staff.nationality = 'Nigerian';
+    staff.father_name = '#the_man';
+    chai.request(app)
+      .post('/api/v1/staff/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .send(staff)
+      .end((err, res) => {
+        res.should.have.status(422);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+
+  it('it should reject invalid input', (done) => {
+    staff.father_name = 'okonkwo';
+    staff.language = 'new-lang';
+    chai.request(app)
+      .post('/api/v1/staff/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .send(staff)
+      .end((err, res) => {
+        res.should.have.status(422);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+
+  it('it should reject invalid input', (done) => {
+    staff.language = 'English';
+    staff.religion = 'omo__yoruba';
+    chai.request(app)
+      .post('/api/v1/staff/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .send(staff)
+      .end((err, res) => {
+        res.should.have.status(422);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+
   it('it should save staff info', (done) => {
+    staff.religion = 'Christain';
     chai.request(app)
       .post('/api/v1/staff/create')
       .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')

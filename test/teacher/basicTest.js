@@ -10,17 +10,16 @@ chai.use(chaiHttp);
 
 const teacher = {
   email: 'newdon@gmail.com',
-  role: 'teacher',
-  last_name: 'newton',
-  first_name: 'chu',
+  last_name: 'chu',
+  first_name: 'newton',
   gender: 'male',
   dob: '2002-04-07',
-  blood_group: 'a',
+  blood_group: 'A',
   nationality: 'Nigerian',
   job_title: 'Teacher',
   // department: '777b046e-8e53-4e8f-b2a0-eb6c7568dd00',
   level: 'level 30',
-  qualification: 'bachelors degreee',
+  qualification: 'bachelors degree',
   total_experience: 'six months',
   marital_status: 'single',
   number_of_children: '0',
@@ -41,7 +40,7 @@ describe('Teacher information tests', () => {
     department = await models.departments.findOne({
       attributes: ['id']
     });
-    teacher.department = department.dataValues.id;
+    teacher.department_id = department.dataValues.id;
     chai.request(app)
       .post('/api/v1/teacher/create')
       .send(teacher)
@@ -61,7 +60,67 @@ describe('Teacher information tests', () => {
       });
   });
 
+  it('it should reject invalid input', (done) => {
+    teacher.first_name = '$skboy';
+    chai.request(app)
+      .post('/api/v1/teacher/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .send(teacher)
+      .end((err, res) => {
+        res.should.have.status(422);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+
+  it('it should reject invalid input', (done) => {
+    teacher.first_name = 'newton';
+    teacher.blood_group = 'K';
+    chai.request(app)
+      .post('/api/v1/teacher/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .send(teacher)
+      .end((err, res) => {
+        res.should.have.status(422);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+
+  it('it should reject invalid input', (done) => {
+    teacher.blood_group = 'A';
+    teacher.marital_status = 'double';
+    chai.request(app)
+      .post('/api/v1/teacher/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .send(teacher)
+      .end((err, res) => {
+        res.should.have.status(422);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+
+  it('it should reject invalid input', (done) => {
+    teacher.marital_status = 'single';
+    teacher.number_of_children = 'two';
+    chai.request(app)
+      .post('/api/v1/teacher/create')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .send(teacher)
+      .end((err, res) => {
+        res.should.have.status(422);
+        res.body.should.have.property('status', 'error');
+        res.body.should.have.property('message');
+        done();
+      });
+  });
+
   it('it should save teacher info', (done) => {
+    teacher.number_of_children = '0';
     chai.request(app)
       .post('/api/v1/teacher/create')
       .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')

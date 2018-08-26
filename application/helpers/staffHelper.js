@@ -9,6 +9,7 @@ const userHelper = require('../helpers/userHelper');
 exports.createStaff = async (data) => {
   await userHelper.generateID('staff', 'STF').then((count) => {
     data.employee_id = count;
+    data.role = 'staff';
   }).catch((error) => {
     throw new Error(error.message);
   });
