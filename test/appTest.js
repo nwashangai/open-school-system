@@ -94,3 +94,4 @@ describe('Login attempts', () => {
 require('./teacher/basicTest');
 require('./student/basicTest');
 require('./staff/basicTest');
+require('./users/basicTest');

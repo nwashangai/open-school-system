@@ -8,6 +8,8 @@ import { checkInput } from '../../middlewares/validate';
 const router = express.Router();
 
 router.post('/user/login', checkInput, UserController.login);
+router.post('/user/requestPasswordReset', checkInput, UserController.requestPasswordReset);
+router.put('/user/resetPassword', checkInput, UserController.passwordReset);
 router.use('/student/', studentRoutes);
 router.use('/teacher/', teacherRoutes);
 router.use('/staff/', staffRoutes);
