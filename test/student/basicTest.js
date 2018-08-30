@@ -19,7 +19,7 @@ const student = {
   religion: 'Christain',
   student_category: 'New',
   student_type: 'Day',
-  address_1: '1 new street',
+  address: '1 new street',
   phone: '0123456789',
   city: 'FCT',
   state: 'Abuja',

@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     blood_group: DataTypes.STRING(3),
     nationality: DataTypes.STRING(50),
     religion: DataTypes.STRING(20),
-    address_1: DataTypes.STRING(100),
+    address: DataTypes.STRING(100),
     address_2: DataTypes.STRING(100),
     phone: DataTypes.STRING(15),
     phone_2: DataTypes.STRING(15),

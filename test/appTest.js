@@ -9,6 +9,14 @@ chai.use(chaiHttp);
 
 /* Test the /GET route */
 describe('app index route', () => {
+  it('it should GET docs', (done) => {
+    chai.request(app)
+      .get('/api-docs')
+      .end((err, res) => {
+        res.should.have.status(200);
+        done();
+      });
+  });
   it('it should GET /', (done) => {
     chai.request(app)
       .get('/')

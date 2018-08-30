@@ -25,7 +25,7 @@ const staff = {
   mother_name: 'nnenna',
   language: 'english',
   religion: 'christain',
-  address_1: '58 citylight',
+  address: '58 citylight',
   phone: '09012334567',
   city: 'ikeja',
   state: 'lagos',
