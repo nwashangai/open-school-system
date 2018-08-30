@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     religion: DataTypes.STRING(20),
     student_category: DataTypes.STRING(10),
     student_type: DataTypes.STRING(10),
-    address_1: DataTypes.STRING(100),
+    address: DataTypes.STRING(100),
     address_2: DataTypes.STRING(100),
     phone: DataTypes.STRING(15),
     phone_2: DataTypes.STRING(15),

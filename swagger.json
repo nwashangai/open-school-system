@@ -1,0 +1,737 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is the open school system server API docs.  You can find out more about open school system at [http://open-school-system.io/](http://github.com/nwashangai/open-school-system) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).      For this sample, you can use the api key `special-key` to test the authorization     filters.",
+    "version": "1.0.0",
+    "title": "Open School System",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "nwashangai@gmail.com"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "host": "localhost:3000",
+  "basePath": "/api/v1",
+  "tags": [
+    {
+      "name": "my scchool",
+      "description": "Everything about your school",
+      "externalDocs": {
+        "description": "Find out more",
+        "url": "http://github.com/nwashangai/open-school-system/"
+      }
+    },
+    {
+      "name": "student",
+      "description": "Access to student specific API"
+    },
+    {
+      "name": "teacher",
+      "description": "Access to teacher specific API"
+    },
+    {
+      "name": "staff",
+      "description": "Access to staff specific API"
+    },
+    {
+      "name": "general user",
+      "description": "Operations for all types user",
+      "externalDocs": {
+        "description": "Find out more about our store",
+        "url": "http://github.com/nwashangai/open-school-system/"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/user/login": {
+      "post": {
+        "tags": [
+          "general user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The email name for login",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "login successful",
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "token"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "token": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username/password supplied",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/requestPasswordReset": {
+      "post": {
+        "tags": [
+          "general user"
+        ],
+        "summary": "Send password reset email",
+        "description": "",
+        "operationId": "requestPasswordReset",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "payload",
+            "in": "query",
+            "description": "encrypted time payload given in the recovery email sent",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The registered email for for recovery",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful email sent",
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "token"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "email does not exist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/resetPassword": {
+      "put": {
+        "tags": [
+          "general user"
+        ],
+        "summary": "Update user password",
+        "description": "",
+        "operationId": "resetPassword",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The registered email for for recovery",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful email sent",
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "token"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "email does not exist",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/user/logout": {
+      "get": {
+        "tags": [
+          "general user"
+        ],
+        "summary": "Logs out current logged in user session",
+        "description": "",
+        "operationId": "logoutUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [],
+        "responses": {
+          "default": {
+            "description": "successful operation"
+          }
+        }
+      }
+    },
+    "/student": {
+      "get": {
+        "tags": [
+          "student"
+        ],
+        "summary": "Get list of all students",
+        "description": "",
+        "operationId": "getStudents",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "entries"
+              ],
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/student/create": {
+      "post": {
+        "tags": [
+          "student"
+        ],
+        "summary": "Create new student",
+        "description": "",
+        "operationId": "createStudent",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The students information",
+            "required": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/User"
+                },
+                {
+                  "$ref": "#/definitions/Student"
+                },
+                {
+                  "$ref": "#/definitions/OtherData"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "entry": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/teacher/create": {
+      "post": {
+        "tags": [
+          "teacher"
+        ],
+        "summary": "Create new teacher",
+        "description": "",
+        "operationId": "createTeacher",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The teacher information",
+            "required": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/User"
+                },
+                {
+                  "$ref": "#/definitions/Teacher"
+                },
+                {
+                  "$ref": "#/definitions/Employee"
+                },
+                {
+                  "$ref": "#/definitions/OtherData"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "entry": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/staff/create": {
+      "post": {
+        "tags": [
+          "staff"
+        ],
+        "summary": "Create new staff",
+        "description": "",
+        "operationId": "createStaff",
+        "produces": [
+          "application/json",
+          "application/xml"
+        ],
+        "security": [
+          {
+            "JWT": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "The staff information",
+            "required": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/User"
+                },
+                {
+                  "$ref": "#/definitions/Employee"
+                },
+                {
+                  "$ref": "#/definitions/OtherData"
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "created successfully",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                },
+                "entry": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "internal server error",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "string"
+                },
+                "message": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "JWT": {
+      "description": "Protected endpoints require a token",
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Student": {
+      "type": "object",
+      "required": [
+        "student_category",
+        "student_type"
+      ],
+      "properties": {
+        "blood_group": {
+          "type": "string"
+        },
+        "student_category": {
+          "type": "string"
+        },
+        "student_type": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Student"
+      }
+    },
+    "Employee": {
+      "type": "object",
+      "required": [
+        "role",
+        "job_title",
+        "level",
+        "qualification",
+        "total_experience",
+        "marital_status",
+        "number_of_children",
+        "father_name",
+        "mother_name"
+      ],
+      "properties": {
+        "blood_group": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "qualification": {
+          "type": "string"
+        },
+        "total_experience": {
+          "type": "string"
+        },
+        "marital_status": {
+          "type": "string"
+        },
+        "number_of_children": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "father_name": {
+          "type": "string"
+        },
+        "mother_name": {
+          "type": "string"
+        },
+        "spouse_name": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "Employee"
+      }
+    },
+    "OtherData": {
+      "type": "object",
+      "required": [
+        "last_name",
+        "first_name",
+        "gender",
+        "dob",
+        "nationality",
+        "language",
+        "address",
+        "phone",
+        "city",
+        "state",
+        "country"
+      ],
+      "properties": {
+        "last_name": {
+          "type": "string"
+        },
+        "middle_name": {
+          "type": "string"
+        },
+        "first_name": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "dob": {
+          "type": "string"
+        },
+        "nationality": {
+          "type": "string"
+        },
+        "language": {
+          "type": "string"
+        },
+        "religion": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "address_2": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "phone_2": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "country": {
+          "type": "string"
+        }
+      },
+      "xml": {
+        "name": "OtherData"
+      }
+    },
+    "Teacher": {
+      "type": "object",
+      "required": [
+        "department_id"
+      ],
+      "properties": {
+        "department_id": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

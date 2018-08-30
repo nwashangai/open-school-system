@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import Debug from 'debug';
 import express from 'express';
+import swaggerUi from 'swagger-ui-express';
 import logger from 'morgan';
 
 import sassMiddleware from 'node-sass-middleware';
@@ -10,6 +11,7 @@ import path from 'path';
 // import favicon from 'serve-favicon';
 
 import index from './routes/index';
+import swaggerDocument from '../swagger.json';
 
 
 const app = express();
@@ -37,6 +39,7 @@ app.use(sassMiddleware({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(index);
 
 // catch 404 and forward to error handler
