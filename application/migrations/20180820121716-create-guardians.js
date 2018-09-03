@@ -4,7 +4,6 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('guardians', {
       id: {
-        allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: uuid()
@@ -22,6 +21,10 @@ module.exports = {
       },
       first_name: {
         type: Sequelize.STRING(50),
+        allowNull: false
+      },
+      gender: {
+        type: Sequelize.STRING(7),
         allowNull: false
       },
       dob: {

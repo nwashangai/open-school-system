@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const student_guardians = sequelize.define('student_guardians', {
     id: {
       type: DataTypes.UUID,
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
     },
     guardian_id: DataTypes.UUID,
     student_email: DataTypes.STRING(50),

@@ -1,11 +1,13 @@
+require('dotenv').config();
+
 module.exports = {
   development: {
-    username: 'postgres',
-    password: 'andela',
-    database: 'oss',
-    host: '127.0.0.1',
+    username: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
+    host: process.env.DB_HOST,
     logging: false,
-    port: 5432,
+    port: process.env.DB_PORT,
     dialect: 'postgres'
   },
   test: {

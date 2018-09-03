@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const subjects = sequelize.define('subjects', {
     id: {
       type: DataTypes.UUID,
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
     },
     category_id: DataTypes.UUID,
     subject_name: DataTypes.STRING(50)

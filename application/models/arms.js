@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const arms = sequelize.define('arms', {
     id: {
       type: DataTypes.UUID,
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
     },
     class_id: DataTypes.UUID,
     arm: DataTypes.STRING(10),

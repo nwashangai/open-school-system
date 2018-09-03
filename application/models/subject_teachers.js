@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const subject_teachers = sequelize.define('subject_teachers', {
     teacher_id: {
       type: DataTypes.STRING(50),
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
     },
     subject_id: {
       type: DataTypes.UUID,

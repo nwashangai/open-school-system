@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const class_time_tables = sequelize.define('class_time_tables', {
     id: {
       type: DataTypes.UUID,
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
     },
     session_id: DataTypes.UUID,
     class_arm_id: DataTypes.UUID

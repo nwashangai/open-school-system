@@ -103,3 +103,4 @@ require('./teacher/basicTest');
 require('./student/basicTest');
 require('./staff/basicTest');
 require('./users/basicTest');
+require('./guardian/basicTest');

@@ -4,13 +4,13 @@ module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('student_guardians', {
       id: {
-        allowNull: false,
         primaryKey: true,
         type: Sequelize.UUID,
         defaultValue: uuid()
       },
       guardian_id: {
         type: Sequelize.UUID,
+        allowNull: false,
         references: {
           model: 'guardians',
           key: 'id'
@@ -18,13 +18,15 @@ module.exports = {
       },
       student_email: {
         type: Sequelize.STRING(50),
+        allowNull: false,
         references: {
           model: 'students',
           key: 'email'
         }
       },
       relationship: {
-        type: Sequelize.STRING(20)
+        type: Sequelize.STRING(20),
+        allowNull: false
       },
       createdAt: {
         allowNull: false,

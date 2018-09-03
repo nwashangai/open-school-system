@@ -3,7 +3,8 @@ module.exports = (sequelize, DataTypes) => {
   const registrations = sequelize.define('registrations', {
     id: {
       type: DataTypes.UUID,
-      primaryKey: true
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4
     },
     student_id: DataTypes.STRING(20),
     term_id: DataTypes.UUID,

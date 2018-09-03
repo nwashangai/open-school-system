@@ -1,14 +1,14 @@
-const teacherHelper = require('../helpers/teacherHelper');
+const guardianHelper = require('../helpers/guardianHelper');
 
-class TeacherController {
+class GuardianController {
   /**
-   * Create teacher record
+   * Create guardian record
    * @method
    * @param {object} request
    * @param {object} response
    */
-  async setTeacher(request, response) {
-    await teacherHelper.createTeacher(request.body).then((done) => {
+  async setGuardian(request, response) {
+    await guardianHelper.createGuardian(request.body).then((done) => {
       response.status(200).json({ status: 'success', message: 'Record added', entry: done });
     }).catch((error) => {
       response.status(500).json({ status: 'error', message: error.message });
@@ -16,4 +16,4 @@ class TeacherController {
   }
 }
 
-module.exports = new TeacherController();
+module.exports = new GuardianController();
