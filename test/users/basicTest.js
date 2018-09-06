@@ -1,4 +1,5 @@
 import chai from 'chai';
+import fs from 'fs';
 import 'babel-polyfill';
 import chaiHttp from 'chai-http';
 import encrypt from '../../application/helpers/crypto';
@@ -13,6 +14,8 @@ const oldTime = new Date('2017-04-11T10:20:30Z');
 timer.setDate(timer.getDate() + 1);
 const oldCypher = encrypt.encrypt(oldTime.toDateString());
 const cypher = encrypt.encrypt(timer.toDateString());
+const filename = 'unnamed.jpg';
+const invalidFile = 'scrum.pdf';
 
 /* Test the /GET route */
 describe('User password reset tests', () => {
@@ -75,4 +78,36 @@ describe('User password reset tests', () => {
         done();
       });
   });
-})
+
+  it('it should reject invalid file type', (done) => {
+    chai.request(app)
+      .post('/api/v1/user/upload')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .set('Content-Type', 'multipart/form-data')
+      .attach('avatar', `${__dirname}/${invalidFile}`)
+      .end((err, res) => {
+        if (err) {
+          throw (err);
+        }
+        res.should.have.status(500);
+        done();
+      });
+  });
+
+  it('it should upload avatar', (done) => {
+    chai.request(app)
+      .post('/api/v1/user/upload')
+      .set('Authorization', 'JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbElkIjoiam9obmRvZUBnbWFpbC5jb20iLCJpYXQiOjE1MzQ3MTczNTB9.O3WwKabBT8ZWZlcscQxAJVrRrBQROmymuMDJA66ZPWE')
+      .set('Content-Type', 'multipart/form-data')
+      .attach('avatar', `${__dirname}/${filename}`)
+      .end((err, res) => {
+        if (err) {
+          throw (err);
+        }
+        res.should.have.status(200);
+        res.body.should.have.property('status', 'success');
+        res.body.should.have.property('message', 'avatar updated');
+        done();
+      });
+  });
+});

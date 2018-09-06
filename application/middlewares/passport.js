@@ -6,22 +6,21 @@ require('dotenv').config();
 
 const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
-const jwtOptions = {}
+const jwtOptions = {};
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
 jwtOptions.secretOrKey = process.env.SECRET;
 
 const strategy = new JwtStrategy(jwtOptions, (jwtPayload, next) => {
   // this would be a database call:
-  models.users.findAll({
+  return models.users.findAll({
     where: {
       email: jwtPayload.emailId
     }
   }).then((done) => {
     if (done.length > 0) {
-      next(null, done);
-    } else {
-      next(null, false);
+      return next(null, done);
     }
+    return next(null, false);
   }).catch((error) => {
     next(null, false);
   });

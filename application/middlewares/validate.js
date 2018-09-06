@@ -1,5 +1,6 @@
 import validator from 'validator';
 import moment from 'moment';
+import path from 'path';
 
 const roles = ['student', 'teacher', 'admin', 'staff'];
 const gender = ['male', 'female'];
@@ -60,4 +61,12 @@ exports.checkInput = (request, response, next) => {
   } else {
     return next(response.status(422).json({ status: 'error', message: res }));
   }
+}
+
+exports.avatarFilter = (req, file, callback) => {
+  const ext = path.extname(file.originalname);
+  if (ext !== '.png' && ext !== '.jpg' && ext !== '.gif' && ext !== '.jpeg') {
+    return callback('Only images are allowed');
+  }
+  callback(null, true);
 }

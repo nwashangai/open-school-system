@@ -25,8 +25,17 @@ exports.generateID = async (role, prefix) => {
 };
 
 exports.updatePassword = (email, password) => {
-  return models.users.update({ password }, { where: { email } }).then(result => result)
+  /* return models.users.findOne({ where: { email } })
+    .on('success', (user) => {
+      if (user) {
+        return user.update({ password }).success(() => user);
+      }
+      throw Error('no user found');
+    }); */
+  return models.users.update({ password }, { where: { email }, individualHooks: true }).then(result => result)
     .catch((error) => { throw error; });
+  /* return models.users.update({ password }, { where: { email } }).then(result => result)
+    .catch((error) => { throw error; }); */
 };
 
 exports.timeCheck = (timeHash) => {
@@ -34,4 +43,9 @@ exports.timeCheck = (timeHash) => {
   const a = moment(time, 'DD/MM/YYYY');
   const b = moment(new Date(), 'DD/MM/YYYY');
   return b.diff(a, 'days');
+};
+
+exports.updateAvatar = (data, email) => {
+  return models.users.update({ avatar: data }, { where: { email } }).then(result => result)
+    .catch((error) => { throw error; });
 };

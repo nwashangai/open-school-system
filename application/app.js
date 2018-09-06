@@ -12,6 +12,7 @@ import path from 'path';
 
 import index from './routes/index';
 import swaggerDocument from '../swagger.json';
+import { getUser } from './middlewares/user';
 
 
 const app = express();
@@ -40,6 +41,7 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use(getUser);
 app.use(index);
 
 // catch 404 and forward to error handler

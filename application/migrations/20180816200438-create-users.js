@@ -19,6 +19,9 @@ module.exports = {
         defaultValue: 'F',
         allowNull: false,
       },
+      avatar: {
+        type: Sequelize.JSONB
+      },
       socket_login: {
         type: Sequelize.JSONB
       },

@@ -23,6 +23,7 @@ class StudentController {
    * @param {object} response
    */
   async getStudents(request, response) {
+    console.log(request.decoded);
     await models.students.findAll({
       include: [
         { model: models.users }
